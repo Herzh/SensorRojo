@@ -10,14 +10,18 @@ class MyApp extends StatefulWidget {
 
 class Estado extends State{
   //AccelerometerEvent acelerometro; //Acelerómetro con Gravedad
-  UserAccelerometerEvent acelerometro; //Acelerómetro sin Gravedad
+  //UserAccelerometerEvent acelerometro; //Acelerómetro sin Gravedad
+  GyroscopeEvent giroscopio;
 
   @override
   void initState(){
     super.initState();
-    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+    //accelerometerEvents.listen((AccelerometerEvent event) {
+    //userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+    gyroscopeEvents.listen((GyroscopeEvent event) {
       setState(() {
-        acelerometro = event;
+        //acelerometro = event;
+        giroscopio = event;
       });
     });
   }
@@ -27,10 +31,17 @@ class Estado extends State{
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Acelerómetro'
-            ' X: ${acelerometro.x.roundToDouble()}'
-            ' Y: ${acelerometro.y.roundToDouble()}'
-            ' Z: ${acelerometro.z.roundToDouble()}'
+          title: Text(
+            /*
+              'Acelerómetro'
+              ' X: ${acelerometro.x.roundToDouble()}'
+              ' Y: ${acelerometro.y.roundToDouble()}'
+              ' Z: ${acelerometro.z.roundToDouble()}'
+            */
+              'Giroscopio'
+              ' X: ${giroscopio.x.roundToDouble()}'
+              ' Y: ${giroscopio.y.roundToDouble()}'
+              ' Z: ${giroscopio.z.roundToDouble()}'
           ),
         ),
       ),
