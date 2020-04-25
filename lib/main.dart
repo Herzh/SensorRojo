@@ -9,12 +9,13 @@ class MyApp extends StatefulWidget {
 }
 
 class Estado extends State{
-  AccelerometerEvent acelerometro;
+  //AccelerometerEvent acelerometro; //Acelerómetro con Gravedad
+  UserAccelerometerEvent acelerometro; //Acelerómetro sin Gravedad
 
   @override
   void initState(){
     super.initState();
-    accelerometerEvents.listen((AccelerometerEvent event){
+    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       setState(() {
         acelerometro = event;
       });
