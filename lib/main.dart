@@ -14,11 +14,18 @@ class MyApp extends StatefulWidget {
 
 class Estado extends State<MyApp> {
   AccelerometerEvent acelerometro; //Acelerómetro con Gravedad
+  double valorInicialX = 0;
+  double valorActualX = 0;
 
   // valores por defecto.
   double _width = 150;
   double _height = 150;
-  Color _color = Colors.red;
+  double _opacity = 1;
+
+  Color _color = Color.fromRGBO(
+    255, 0, 0, 1  //el último define la transparencia
+  );
+
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
 
   @override
@@ -27,7 +34,20 @@ class Estado extends State<MyApp> {
     accelerometerEvents.listen((AccelerometerEvent event) {
       setState(() {
         acelerometro = event;
+        valorActualX = acelerometro.x.roundToDouble();
 
+        //En caso de lectura negativa pasamos a positivo para tener el valor absoluto
+        if( valorActualX < 0 ){
+          valorActualX = -valorActualX;
+        }
+
+        //Camnbio la opacidad
+        _opacity = 1 - (valorActualX / 10);
+
+        // Genera el cambio de opacidad
+        _color = Color.fromRGBO(
+          255, 0, 0, _opacity
+        );
       });
     });
   }
@@ -55,9 +75,7 @@ class Estado extends State<MyApp> {
               borderRadius: _borderRadius,
             ),
             // Define la duración de la animación.
-            duration: Duration(seconds: 1),
-            // Proporciona una curva opcional para hacer que la animación se sienta más suave.
-            curve: Curves.fastOutSlowIn,
+            duration: Duration(milliseconds: 20),
           ),
         ),
       ),
